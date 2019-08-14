@@ -1,9 +1,10 @@
 rosrun rpg_trajectory_evaluation analyze_trajectories_new.py \
-  --output_dir /home/romeo/catkin_ws/src/rpg_trajectory_evaluation/results/laptop/plots \
-  --results_dir /home/romeo/catkin_ws/src/rpg_trajectory_evaluation/results/ \
+  --output_dir ~/catkin_ws/src/rpg_trajectory_evaluation/results/laptop/plots \
+  --results_dir ~/catkin_ws/src/rpg_trajectory_evaluation/results/ \
   --platform laptop \
   --odometry_error_per_dataset \
   --overall_odometry_error \
+  --recalculate_errors \
   --plot_trajectories \
   --rmse_table
 

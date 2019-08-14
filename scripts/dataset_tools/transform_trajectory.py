@@ -76,6 +76,8 @@ if __name__ == '__main__':
     parser.add_argument('transformation',
                         help="File with 4x4 transformation matrix, "
                         "Comma separated rows")
+    parser.add_argument('--output', default='trajectory.txt',
+                        help='output filename')
     args = parser.parse_args()
     assert os.path.exists(args.trajectory)
     assert os.path.exists(args.transformation)
@@ -128,7 +130,7 @@ if __name__ == '__main__':
                                    str(transformed_quats[i, 2]), ' ',
                                    str(transformed_quats[i, 3]), '\n']))
 
-    outfn = os.path.join(out_dir, "transformed_poses.txt")
+    outfn = os.path.join(out_dir, args.output)
     with open(outfn, 'w') as f:
         f.writelines(file_lines)
     print("Wrote transformed poses to file {0}.".format(outfn))

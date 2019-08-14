@@ -17,10 +17,10 @@ rc('text', usetex=True)
 
 FORMAT = '.pdf'
 
-ALGORITHM_CONFIGS = ['m545','rovio','vins_mono']
+ALGORITHM_CONFIGS = ['rovio','vins_mono','vins_mono_lc']
 
 # These are the labels that will be displayed for items in ALGORITHM_CONFIGS
-PLOT_LABELS = {'m545': 'tf','rovio': 'ROVIO','vins_mono': 'VINS-Mono'}
+PLOT_LABELS = {'rovio': 'ROVIO','vins_mono': 'VINS-mono','vins_mono_lc': 'VINS-mono LC'}
 
 # assgin colors to different configurations
 # make use you have more colors in the pallete!
@@ -31,14 +31,15 @@ COLORS = {}
 for i in range(len(ALGORITHM_CONFIGS)):
     COLORS[ALGORITHM_CONFIGS[i]] = pallete[i]
 
-DATASETS = ['Outdoor_01', 'Outdoor_02', 'Outdoor_03']
+DATASETS = ['Outdoor_01']
+
 # The maximum lenght will be used to calculate the relative error.
 # otherwise it is calculated from the groundtruth
-MAX_TRAJ_LENGTHS = {'Outdoor_01': 80.6,
-                    'Outdoor_02': 130.9,
-                    'Outdoor_03': 97.5}
+MAX_TRAJ_LENGTHS = {'Outdoor_01': 20,
+                    'Outdoor_02': 73.4,
+                    'Outdoor_03': 130.9}
 # boxplot distances that will be used for all datasets for overall errors
-OVERALL_BOXPLOT_DISTANCES = [7.0, 14.0, 21.0, 28.0, 35.0]
+OVERALL_BOXPLOT_DISTANCES = [4.0, 8.0, 12.0, 16.0]
 
 
 def compute_odometry_error_per_dataset(dataset_trajectories_dict,
@@ -408,10 +409,8 @@ if __name__ == '__main__':
         for d in datasets:
             print("--- Processing {0}-{1}... ---".format(config_i, d))
             trial_name = args.platform + '_' + config_i + '_' + d
-            print("trial_name: {0}".format(trial_name, d))
             trace_dir = os.path.join(args.results_dir,
                                      args.platform, config_i, trial_name)
-            print("trial_name: {0}".format(trace_dir, d))
             assert os.path.exists(trace_dir), "No corresponding trace dir"
             if args.recalculate_errors:
                 Trajectory.remove_cached_error(trace_dir)
@@ -488,3 +487,4 @@ if __name__ == '__main__':
     print("#####################################")
     print("<<< Finished.")
     print("#####################################")
+

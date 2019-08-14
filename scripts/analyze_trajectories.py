@@ -34,7 +34,7 @@ for i in range(len(ALGORITHM_CONFIGS)):
 
 # DATASETS = ['MH_01', 'MH_02', 'MH_03', 'MH_04', 'MH_05', 'V1_01',
             # 'V1_02', 'V1_03', 'V2_01', 'V2_02', 'V2_03']
-DATASETS = ['MH_01', 'MH_03', 'MH_05', 'V2_01', 'V2_02', 'V2_03']
+DATASETS = ['MH_01', 'MH_03']
 
 # The maximum lenght will be used to calculate the relative error.
 # otherwise it is calculated from the groundtruth
