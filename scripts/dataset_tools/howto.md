@@ -16,7 +16,7 @@ python2 ~/catkin_ws/src/rpg_trajectory_evaluation/scripts/dataset_tools/rovio_ba
 
 
 ## Convert VINS bag to stamped_traj_estimate.txt
-
+roslaunch m545_head vins_mono_rosbag.launch
 ### Extract vins pose messages from vins_result_no_loop.csv
 
 python2 ~/catkin_ws/src/rpg_trajectory_evaluation/scripts/dataset_tools/vins_to_pose.py \

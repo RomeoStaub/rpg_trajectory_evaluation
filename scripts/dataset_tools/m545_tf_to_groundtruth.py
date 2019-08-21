@@ -67,8 +67,9 @@ def write_transformation_to_txt_file(bag_file, target_frame, source_frame,
 
           # Write to txt file.
           quaternion = np.array(hamilton_quaternion)
+          corrected_tf = single_tf.header.stamp.to_sec()+1565868937.81
           txt_file.write(
-              str(single_tf.header.stamp.to_sec()) + ' ' +
+              str("{:.10f}".format(corrected_tf)) + ' ' +
               str(translation[0]) + ' ' + str(translation[1]) + ' ' +
               str(translation[2]) + ' ' + str(quaternion[0]) + ' ' +
               str(quaternion[1]) + ' ' + str(quaternion[2]) + ' ' +

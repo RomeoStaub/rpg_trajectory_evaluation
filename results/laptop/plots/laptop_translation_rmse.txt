@@ -1,4 +1,4 @@
-      &       Outdoor_01
-rovio &      0.03 
-vins_mono &      0.02 
-vins_mono_lc &      0.03 
+      &      MM_01 & MM_02 & MM_03 &  MM_06
+rovio &     0.093 & 0.051 & 0.300 &  0.094 
+vins_mono &     0.030 & 0.053 & 0.098 &  0.058 
+vins_mono_lc &     0.030 & 0.044 & 0.088 &  0.064 

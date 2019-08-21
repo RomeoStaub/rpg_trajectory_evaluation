@@ -59,6 +59,8 @@ class Trajectory:
         self.align_str = self.align_type + '_' + str(self.align_num_frames)
 
         self.abs_errors = {}
+        
+        self.velocity = {}
 
         # we cache relative error since it is time-comsuming to compute
         self.rel_errors = {}
@@ -73,6 +75,7 @@ class Trajectory:
             self.compute_boxplot_distances()
 
         self.align_trajectory()
+
 
     def load_data(self):
         """
@@ -160,6 +163,11 @@ class Trajectory:
 
         self.data_aligned = True
         print("... trajectory alignment done.")
+        print("Calculate angular and linear velocity...")
+        
+
+
+        
 
     def compute_absolute_error(self):
         if self.abs_errors:
@@ -268,3 +276,31 @@ class Trajectory:
                   " subtrajectory lengths...")
             for l in self.preset_boxplot_distances:
                 self.compute_relative_error_at_subtraj_len(l)
+    
+    def compute_velocity(self):
+        
+        #print("pos diff: " , np.diff(self.p_gt,axis=0))
+        #print("t diff: " , np.diff(self.t_gt,axis=0))
+        pos_diff = np.diff(self.p_gt,axis=0)
+        q_diff = np.diff(self.q_es_aligned,axis=0)
+        t_diff = np.diff(self.t_gt,axis=0)
+        lin_vel = np.zeros(np.shape(pos_diff))
+        lin_vel_norm = np.zeros(np.shape(pos_diff)[0])
+        angle_ypr = np.zeros(np.shape(self.p_gt))
+        angle_vel = np.zeros(np.shape(pos_diff))
+        angle_vel_norm = np.zeros(np.shape(pos_diff)[0])
+        for i in range(np.shape(pos_diff)[0]):
+            lin_vel[i,:] =  pos_diff[i,:]/t_diff[i]
+            lin_vel_norm[i] = np.linalg.norm(lin_vel[i,:])
+            angle_ypr[i,:] = tf.euler_from_quaternion(self.q_es_aligned[i, :])
+        angle_ypr_diff =  np.diff(angle_ypr,axis=0)
+
+        for i in range(np.shape(pos_diff)[0]):
+            angle_vel[i,:] = angle_ypr_diff[i,:]/t_diff[i]
+            angle_vel_norm[i] = np.linalg.norm(angle_vel[i,:])
+        
+        stats_lin_vel = res_writer.compute_statistics(lin_vel_norm)
+        stats_ang_vel = res_writer.compute_statistics(angle_vel_norm)
+        self.velocity['lin_vel'] = stats_lin_vel
+        self.velocity['ang_vel'] = stats_ang_vel
+        #print("Mean linear velocity" ,self.velocity['lin_vel']['mean'] )

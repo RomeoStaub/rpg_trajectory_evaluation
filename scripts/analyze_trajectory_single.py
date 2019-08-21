@@ -55,26 +55,37 @@ if __name__ == '__main__':
     traj.compute_relative_errors()
     traj.cache_current_error()
     traj.write_errors_to_yaml()
+    traj.compute_velocity()
 
-    # do some plotting
-    print(">>> Plotting absolute error...")
+ 
+    # romeo does some plotting
     fig = plt.figure(figsize=(6, 5.5))
     ax = fig.add_subplot(111, aspect='equal',
                          xlabel='x [m]', ylabel='y [m]')
-    pu.plot_trajectory_top(ax, traj.p_es_aligned, 'b', 'Estimate')
-    pu.plot_trajectory_top(ax, traj.p_gt, 'm', 'Groundtruth')
-    pu.plot_aligned_top(ax, traj.p_es_aligned, traj.p_gt,
-                        traj.align_num_frames)
+    pu.plot_trajectory_top(ax, traj.p_es_aligned, 'b', 'Aligned Estimate')
+    pu.plot_trajectory_top(ax, traj.p_gt, 'k', 'Groundtruth')
+    pu.plot_aligned_top_no_label(ax, traj.p_es_aligned, traj.p_gt, traj.align_num_frames)
     plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
     fig.tight_layout()
-    fig.savefig(plots_dir+'/trajectory_top' + '_' + traj.align_str +
+    fig.savefig(plots_dir+'/trajectory_top_aligned' + '_' + traj.align_str +
                 FORMAT, bbox_inches="tight")
 
     fig = plt.figure(figsize=(6, 5.5))
     ax = fig.add_subplot(111, aspect='equal',
                          xlabel='x [m]', ylabel='y [m]')
+    pu.plot_trajectory_top(ax, traj.p_es, 'b', 'Estimate')
+    pu.plot_trajectory_top(ax, traj.p_gt, 'k', 'Groundtruth')
+    plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+    fig.tight_layout()
+    fig.savefig(plots_dir+'/trajectory_top_unaligned' + '_' + traj.align_str +
+                FORMAT, bbox_inches="tight")
+    ##
+    
+    fig = plt.figure(figsize=(6, 5.5))
+    ax = fig.add_subplot(111, aspect='equal',
+                         xlabel='x [m]', ylabel='z [m]')
     pu.plot_trajectory_side(ax, traj.p_es_aligned, 'b', 'Estimate')
-    pu.plot_trajectory_side(ax, traj.p_gt, 'm', 'Groundtruth')
+    pu.plot_trajectory_side(ax, traj.p_gt, 'k', 'Groundtruth')
     plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
     fig.tight_layout()
     fig.savefig(plots_dir+'/trajectory_side' + '_' + traj.align_str +
@@ -153,3 +164,7 @@ if __name__ == '__main__':
     fig.tight_layout()
     fig.savefig(plots_dir+'/rel_yaw_error'+FORMAT, bbox_inches="tight")
     plt.close(fig)
+    
+    ## Velocity plots
+    
+    

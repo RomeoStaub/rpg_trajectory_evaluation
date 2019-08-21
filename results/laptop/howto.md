@@ -1,4 +1,4 @@
-rosrun rpg_trajectory_evaluation analyze_trajectories_new.py \
+rosrun rpg_trajectory_evaluation analyze_trajectories_M545.py \
   --output_dir ~/catkin_ws/src/rpg_trajectory_evaluation/results/laptop/plots \
   --results_dir ~/catkin_ws/src/rpg_trajectory_evaluation/results/ \
   --platform laptop \
@@ -28,3 +28,23 @@ rosrun rpg_trajectory_evaluation analyze_trajectories_new.py \
   --recalculate_errors  Deletes cached errors
   --plot_trajectories   Plot the trajectories
   --png                 Save plots as png instead of pdf
+
+## Evaluate single trajectory
+rosrun rpg_trajectory_evaluation analyze_trajectory_single.py /home/romeo/catkin_ws/src/rpg_trajectory_evaluation/results/laptop/rovio/laptop_rovio_MM_01
+
+
+rosrun rpg_trajectory_evaluation analyze_trajectory_single.py \
+/home/romeo/catkin_ws/src/rpg_trajectory_evaluation/results/laptop/rovio/laptop_rovio_MM_01 \
+--recalculate_errors 
+
+rosrun rpg_trajectory_evaluation analyze_trajectory_single.py \
+/home/romeo/catkin_ws/src/rpg_trajectory_evaluation/results/laptop/vins_mono/laptop_vins_mono_MM_01 \
+--recalculate_errors 
+
+rosrun rpg_trajectory_evaluation analyze_trajectory_single.py \
+/home/romeo/catkin_ws/src/rpg_trajectory_evaluation/results/laptop/vins_mono_lc/laptop_vins_mono_lc_MM_01 \
+--recalculate_errors
+
+rosrun rpg_trajectory_evaluation analyze_trajectory_single.py \
+/home/romeo/catkin_ws/src/rpg_trajectory_evaluation/results/laptop/m545/laptop_m545_MM_01 \
+--recalculate_errors
